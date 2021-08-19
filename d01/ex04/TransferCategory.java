@@ -1,0 +1,4 @@
+enum TransferCategory {
+	INCOME,
+	OUTCOME
+}
