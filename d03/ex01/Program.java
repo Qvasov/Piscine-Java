@@ -1,8 +1,8 @@
 public class Program {
 
 	public static void main(String[] args) {
-		if (args.length != 2 &&
-				!args[0].matches("--arraySize=\\d+") &&
+		if (args.length != 2 ||
+				!args[0].matches("--arraySize=\\d+") ||
 				!args[1].matches("--threadsCount=\\d")) {
 			return;
 		}
@@ -45,6 +45,8 @@ public class Program {
 
 			}
 		};
+
+		threads[0].join()
 
 		for (int i = 0; i < threads.length; i++) {
 			threads[i] = new Thread(sumTask);

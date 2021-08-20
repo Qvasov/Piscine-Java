@@ -1,7 +1,7 @@
 public class Program {
 
-	public static void main(String[] args) throws InterruptedException {
-		if (args.length != 1 && !args[0].matches("--count=\\d+")) {
+	public static void main(String[] args) {
+		if (args.length != 1 || !args[0].matches("--count=\\d+")) {
 			return;
 		}
 
