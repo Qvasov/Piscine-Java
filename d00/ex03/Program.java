@@ -78,7 +78,7 @@ public class Program {
 		}
 
 		while (storage != 0) {
-			System.out.print("Week " + weekNumber + " ");
+			System.out.printf("Week %d ", weekNumber);
 
 			for (int i = 0; i < storage % 10; i++) {
 				System.out.print("=");
@@ -99,7 +99,7 @@ public class Program {
 
 		int lastWeekNumber = 0;
 
-		int weekNumber = 0;
+		int weekNumber;
 
 		int grade;
 

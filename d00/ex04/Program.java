@@ -88,6 +88,10 @@ public class Program {
 
 		int k;
 
+		if (str.toCharArray().length == 0) {
+			return;
+		}
+
 		for (char c : str.toCharArray()) {
 			if (tableOfFrequency[c] < 999) {
 				tableOfFrequency[c]++;
@@ -103,13 +107,13 @@ public class Program {
 						j = k;
 						break;
 					}
+
 					k++;
 				}
 
 				if (tableOfFrequency[i] == frequencyResult[j]) {
 					k = j;
 					while (k < VIEW_CHARS) {
-
 						if (i < charsResult[k]) {
 							j = k;
 							break;

@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Program {
@@ -15,13 +16,19 @@ public class Program {
 
 	public static void main(String[] args) {
 
-		int number = new Scanner(System.in).nextInt();
+		int number;
 
 		int divider = 2;
 
 		int countIteration = 1;
 
 		boolean prime = true;
+
+		try {
+			number = new Scanner(System.in).nextInt();
+		} catch (InputMismatchException e) {
+			return;
+		}
 
 		if (number < 2) {
 			System.err.println("IllegalArgument");

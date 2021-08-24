@@ -139,7 +139,6 @@ public class Program {
 			}
 		}
 
-
 		System.out.printf("%10c", ' ');
 		for (int j = 0; j < DAYS_IN_MONTHS; j++) {
 			for (int k = 0; k < 6; k++) {
