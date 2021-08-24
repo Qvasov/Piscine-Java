@@ -33,7 +33,7 @@ public class Program {
 		henT.start();
 
 		while (true) {
-			if (!(eggT.isAlive() || henT.isAlive())) {
+			if (!eggT.isAlive() && !henT.isAlive()) {
 				break;
 			}
 		}

@@ -1,59 +1,53 @@
 public class Program {
 
 	public static void main(String[] args) {
-		if (args.length != 2 ||
-				!args[0].matches("--arraySize=\\d+") ||
-				!args[1].matches("--threadsCount=\\d")) {
+		if (args.length != 1 || !args[0].matches("--count=\\d+")) {
 			return;
 		}
 
-		int arraySize = Integer.parseInt(args[0].replace("--arraySize=", ""));
+		int count = Integer.parseInt(args[0].replace("--count=", ""));
 
-		int threadCount = Integer.parseInt(args[0].replace("--threadsCount=", ""));
+		Object lock = new Object();
 
-		if (arraySize < 1 || threadCount < 1) {
-			return;
-		} else if (arraySize > 2_000_000) {
-			arraySize = 2_000_000;
-		}
-
-		if (threadCount > arraySize) {
-			threadCount = arraySize;
-		}
-
-		int[] array = new int[arraySize];
-
-		int sum = 0;
-
-		for (int i = 0; i < array.length; i++) {
-//			array[i] = (int) Math.round(Math.random() * Integer.MAX_VALUE) % 1000;
-			array[i] = 1;
-			sum += array[i];
-		}
-
-		System.out.println("Sum: " + sum);
-
-		Thread[] threads = new Thread[threadCount];
-
-		int sectorSize = arraySize / threadCount;
-
-		int lastSectorSize = sectorSize + arraySize - (sectorSize * threadCount);
-
-		Runnable sumTask = new Runnable() {
+		Runnable egg = new Runnable() {
 			@Override
 			public void run() {
-
+				synchronized (lock) {
+					for (int i = 0; i < count; i++) {
+						System.out.println("Egg");
+						lock.notify();
+						try {
+							lock.wait();
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+				}
 			}
 		};
 
-		threads[0].join()
+		Runnable hen = new Runnable() {
+			@Override
+			public void run() {
+				synchronized (lock) {
+					for (int i = 0; i < count; i++) {
+						System.out.println("Hen");
+						lock.notify();
+						try {
+							lock.wait();
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+		};
 
-		for (int i = 0; i < threads.length; i++) {
-			threads[i] = new Thread(sumTask);
-		}
+		Thread eggT = new Thread(egg);
 
-		for (int i = 0; i < threadCount; i++) {
-			threads[i].start();
-		}
+		Thread henT = new Thread(hen);
+
+		eggT.start();
+		henT.start();
 	}
 }
