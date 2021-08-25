@@ -100,5 +100,9 @@ public class Program {
 			System.out.printf("%4s -> %4s, %s, %5s, %s\n", t.getSender().getName(), t.getRecipient().getName(),
 					t.getAmountString(), t.getCategory() ,t.getId());
 		}
+
+		System.out.println();
+		System.out.println("8 ---------------");
+		transactionsService.transfer(1,2, 50000);
 	}
 }
