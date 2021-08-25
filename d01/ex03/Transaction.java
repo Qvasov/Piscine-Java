@@ -11,12 +11,24 @@ public class Transaction {
 
 	private int amount;
 
+	private TransferStatus status;
+
 	public Transaction(User recipient, User sender, TransferCategory category, int amount) {
-		setId(UUID.randomUUID().toString());
-		setRecipient(recipient);
-		setSender(sender);
-		setCategory(category);
-		setAmount(amount);
+		this.id = UUID.randomUUID().toString();
+		this.recipient = recipient;
+		this.sender = sender;
+		this.category = category;
+		this.amount = amount;
+
+		if (category == TransferCategory.OUTCOME && amount < 0 && this.recipient.getBalance() >= abs(amount)) {
+			this.status = TransferStatus.SUCCESS;
+			this.recipient.setBalance(this.recipient.getBalance() + amount);
+		} else if (category == TransferCategory.INCOME && amount > 0 && this.recipient.getBalance() >= amount) {
+			this.status = TransferStatus.SUCCESS;
+			this.sender.setBalance(this.sender.getBalance() + amount);
+		} else {
+			this.status = TransferStatus.FAIL;
+		}
 	}
 
 	public String getId() {
@@ -47,31 +59,30 @@ public class Transaction {
 		}
 	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public void setRecipient(User recipient) {
-		this.recipient = recipient;
-	}
-
-	public void setSender(User sender) {
-		this.sender = sender;
-	}
-
-	public void setCategory(TransferCategory category) {
-		this.category = category;
-	}
-
 	public void setAmount(int amount) {
 		if (category == TransferCategory.OUTCOME && amount < 0 ||
 				category == TransferCategory.INCOME && amount > 0) {
 			this.amount = amount;
+		} else {
+			this.amount = 0;
 		}
 	}
 
 	enum TransferCategory {
 		INCOME,
 		OUTCOME
+	}
+
+	enum TransferStatus {
+		SUCCESS,
+		FAIL
+	}
+
+	private int abs(int amount) {
+		if (amount < 0) {
+			return amount * -1;
+		} else {
+			return amount;
+		}
 	}
 }
