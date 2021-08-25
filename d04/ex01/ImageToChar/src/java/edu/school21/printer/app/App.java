@@ -4,8 +4,6 @@ import edu.school21.printer.logic.Logic;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class App {
 
