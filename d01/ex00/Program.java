@@ -18,25 +18,25 @@ public class Program {
 		Transaction t2 = new Transaction(user1, user2, Transaction.TransferCategory.INCOME, 500);
 
 		System.out.printf("%s -> %s, %s, %s, %s\n", t1.getSender().getName(), t1.getRecipient().getName(),
-				t1.getAmountString(), t1.getCategory() ,t1.getId());
+				t1.getAmountString(), t1.getCategory(), t1.getId());
 		System.out.printf("%s -> %s, %s, %s, %s\n", t2.getSender().getName(), t2.getRecipient().getName(),
-				t2.getAmountString(), t2.getCategory() ,t2.getId());
+				t2.getAmountString(), t2.getCategory(), t2.getId());
 		System.out.println();
 
 		t1.setAmount(100);
 		System.out.printf("%s -> %s, %s, %s, %s\n", t1.getSender().getName(), t1.getRecipient().getName(),
-				t1.getAmountString(), t1.getCategory() ,t1.getId());
+				t1.getAmountString(), t1.getCategory(), t1.getId());
 		t2.setAmount(-100);
 		System.out.printf("%s -> %s, %s, %s, %s\n", t2.getSender().getName(), t2.getRecipient().getName(),
-				t2.getAmountString(), t2.getCategory() ,t2.getId());
+				t2.getAmountString(), t2.getCategory(), t2.getId());
 		System.out.println();
 
 		t1.setAmount(-150);
 		System.out.printf("%s -> %s, %s, %s, %s\n", t1.getSender().getName(), t1.getRecipient().getName(),
-				t1.getAmountString(), t1.getCategory() ,t1.getId());
+				t1.getAmountString(), t1.getCategory(), t1.getId());
 		t2.setAmount(150);
 		System.out.printf("%s -> %s, %s, %s, %s\n", t2.getSender().getName(), t2.getRecipient().getName(),
-				t2.getAmountString(), t2.getCategory() ,t2.getId());
+				t2.getAmountString(), t2.getCategory(), t2.getId());
 	}
 }
 

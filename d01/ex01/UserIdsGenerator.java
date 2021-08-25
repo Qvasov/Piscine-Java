@@ -9,6 +9,7 @@ public class UserIdsGenerator {
 	public static UserIdsGenerator getInstance() {
 		return instance;
 	}
+
 	public int generateId() {
 		return ++lastId;
 	}
