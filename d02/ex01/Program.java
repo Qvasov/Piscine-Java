@@ -1,8 +1,6 @@
 import java.io.*;
 import java.util.*;
 
-//TODO чекнуть ответ в задании 0.54 по факту 0.55 с учетом сокращений
-//Узнать про сортировку словаря
 public class Program {
 
 	private static final String DICTIONARY_FILE_NAME = "dictionary.txt";
