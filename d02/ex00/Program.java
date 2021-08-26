@@ -7,11 +7,7 @@ import java.util.Scanner;
 
 public class Program {
 
-	private static final String SIGNATURES = "d02/ex00/signatures.txt";
-
-	private static final String FILE = "d02/ex00/1.png";
-
-	//TODO	private static final String SIGNATURES = "signatures.txt";
+	private static final String SIGNATURES = "signatures.txt";
 
 	private static final String RESULT = "result.txt";
 
@@ -31,7 +27,7 @@ public class Program {
 		boolean processed = false;
 
 		while (scanner.hasNext()) {
-			inputFileName = scanner.next();
+			inputFileName = scanner.nextLine();
 
 			if (inputFileName.equals("42")) {
 				break;
@@ -70,7 +66,7 @@ public class Program {
 		String result = "";
 
 		for (byte b : magic) {
-			result += String.format("%02X",b);
+			result += String.format("%02X", b);
 		}
 
 		inputFile.close();
