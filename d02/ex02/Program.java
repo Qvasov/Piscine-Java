@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Program {
 
 	public static void main(String[] args) throws IOException {
-		if (args.length != 1 && !args[0].startsWith("--current-folder=")) {
+		if (args.length != 1 || !args[0].startsWith("--current-folder=")) {
 			return;
 		}
 

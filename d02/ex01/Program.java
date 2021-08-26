@@ -88,7 +88,12 @@ public class Program {
 		}
 
 		denominator = Math.sqrt(n1) * Math.sqrt(n2);
-		return numerator / denominator;
+
+		if (denominator == 0) {
+			return 0;
+		} else {
+			return numerator / denominator;
+		}
 	}
 
 	public static void createFile(List<String> dictionary) throws IOException {
