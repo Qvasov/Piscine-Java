@@ -20,7 +20,7 @@ public class App {
 
 		char black = args[1].replace("--black=", "").charAt(0);
 
-		URL url = App.class.getClassLoader().getResource("resources/image.bmp");
+		URL url = App.class.getClassLoader().getResource("resources/it.bmp");
 
 		try {
 			char[][] array = Logic.imageToCharArray(url, white, black);

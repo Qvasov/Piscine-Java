@@ -22,7 +22,7 @@ public class App {
 
 		JCommander.newBuilder().addObject(app).build().parse(args);
 
-		URL url = App.class.getClassLoader().getResource("resources/image.bmp");
+		URL url = App.class.getClassLoader().getResource("resources/it.bmp");
 
 		try {
 			String[][] array = Logic.imageToCharArray(url, app.white, app.black);
