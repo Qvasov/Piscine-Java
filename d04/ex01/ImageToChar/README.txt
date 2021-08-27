@@ -5,4 +5,4 @@ cp -a src/resources target
 jar cfmv target/images-to-chars-printer.jar src/manifest.txt -C target .
 
 # To Run
-java -jar target/images-to-chars-printer.jar --white=. --black=0
+java -jar target/images-to-chars-printer.jar --white={white char} --black={black char}
