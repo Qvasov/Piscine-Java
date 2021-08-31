@@ -125,4 +125,26 @@ public class MessagesRepositoryJdbcImpl implements MessagesRepository{
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void update(Message message) {
+        try (Connection connection = dataSource.getConnection()){
+            PreparedStatement statement = connection.prepareStatement(
+                    "UPDATE t_messages SET " +
+                            "f_author_id = ?, " +
+                            "f_chatroom_id = ?, " +
+                            "f_text = ?, " +
+                            "f_datetime = ? " +
+                            "WHERE f_id = ?;");
+            statement.setLong(1, message.getAuthor().getId());
+            statement.setLong(2, message.getRoom().getId());
+            statement.setString(3, message.getText());
+            statement.setTimestamp(4, message.getDateTime());
+            statement.setLong(5, message.getId());
+            statement.execute();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

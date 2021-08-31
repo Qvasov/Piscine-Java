@@ -14,8 +14,6 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
 
 public class Program {
 
@@ -77,7 +75,7 @@ public class Program {
 
 			User fakeUser1 = new User(999L, "java", "java");
 			User fakeUser2 = new User(999L, "java", "java");
-			Chatroom fakeRoom1 = new Chatroom(null, "fakeRoom", fakeUser2);
+			Chatroom fakeRoom1 = new Chatroom(null, "fakeRoom", fakeUser1);
 			Chatroom fakeRoom2 = new Chatroom(null, "fakeRoom", fakeUser2);
 
 			try {

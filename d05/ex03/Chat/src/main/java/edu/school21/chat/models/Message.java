@@ -59,6 +59,10 @@ public class Message {
 				'}';
 	}
 
+	public Long getId() {
+		return id;
+	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -67,19 +71,31 @@ public class Message {
 		return author;
 	}
 
-	public Long getId() {
-		return id;
+	public void setAuthor(User author) {
+		this.author = author;
 	}
 
 	public Chatroom getRoom() {
 		return room;
 	}
 
+	public void setRoom(Chatroom room) {
+		this.room = room;
+	}
+
 	public String getText() {
 		return text;
 	}
 
+	public void setText(String text) {
+		this.text = text;
+	}
+
 	public Timestamp getDateTime() {
 		return dateTime;
+	}
+
+	public void setDateTime(Timestamp dateTime) {
+		this.dateTime = dateTime;
 	}
 }
