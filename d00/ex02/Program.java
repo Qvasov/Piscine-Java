@@ -9,7 +9,7 @@ public class Program {
 			n++;
 		}
 
-		return n - 1;
+		return n;
 	}
 
 	public static int sumOfDigit(int number) {
