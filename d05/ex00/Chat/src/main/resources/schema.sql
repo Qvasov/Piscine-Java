@@ -16,5 +16,5 @@ CREATE TABLE t_messages
     f_author_id BIGSERIAL REFERENCES t_users (f_id),
     f_chatroom_id BIGSERIAL REFERENCES t_chatrooms (f_id),
     f_text VARCHAR(255),
-    f_date TIMESTAMP(0) NOT NULL DEFAULT now()
+    f_datetime TIMESTAMP(0) NOT NULL DEFAULT now()
 );

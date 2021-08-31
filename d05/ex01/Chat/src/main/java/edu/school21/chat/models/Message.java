@@ -1,5 +1,6 @@
 package edu.school21.chat.models;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Message {
@@ -7,14 +8,14 @@ public class Message {
 	private User author;
 	private Chatroom room;
 	private String text;
-	private Date date;
+	private Date datetime;
 
-	public Message(Long id, User author, Chatroom room, String text, Date date) {
+	public Message(Long id, User author, Chatroom room, String text, Date datetime) {
 		this.id = id;
 		this.author = author;
 		this.room = room;
 		this.text = text;
-		this.date = date;
+		this.datetime = datetime;
 	}
 
 	@Override
@@ -28,7 +29,7 @@ public class Message {
 		if (!author.equals(message.author)) return false;
 		if (!room.equals(message.room)) return false;
 		if (!text.equals(message.text)) return false;
-		return date.equals(message.date);
+		return datetime.equals(message.datetime);
 	}
 
 	@Override
@@ -37,7 +38,7 @@ public class Message {
 		result = 31 * result + author.hashCode();
 		result = 31 * result + room.hashCode();
 		result = 31 * result + text.hashCode();
-		result = 31 * result + date.hashCode();
+		result = 31 * result + datetime.hashCode();
 		return result;
 	}
 
@@ -48,7 +49,7 @@ public class Message {
 				", author=" + author +
 				", room=" + room +
 				", text='" + text + '\'' +
-				", date=" + date +
+				", date=" + datetime +
 				'}';
 	}
 }
