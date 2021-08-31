@@ -130,17 +130,27 @@ public class MessagesRepositoryJdbcImpl implements MessagesRepository{
     public void update(Message message) {
         try (Connection connection = dataSource.getConnection()){
             PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE t_messages SET " +
-                            "f_author_id = ?, " +
-                            "f_chatroom_id = ?, " +
-                            "f_text = ?, " +
-                            "f_datetime = ? " +
-                            "WHERE f_id = ?;");
-            statement.setLong(1, message.getAuthor().getId());
-            statement.setLong(2, message.getRoom().getId());
-            statement.setString(3, message.getText());
-            statement.setTimestamp(4, message.getDateTime());
-            statement.setLong(5, message.getId());
+                    "SELECT f_author_id, f_chatroom_id FROM t_messages WHERE f_id = ?;");
+            ResultSet resultSet = statement.executeQuery();
+
+            if (!resultSet.next()) {
+                throw new NotSavedSubEntityException("Message not found");
+            }
+
+            if (resultSet.getLong("f_author_id") == message.getAuthor().getId() &&
+                    resultSet.getLong("f_chatroom_id") == message.getRoom().getId()) {
+                statement = connection.prepareStatement(
+                        "UPDATE t_messages SET " +
+                                "f_text = ?, " +
+                                "f_datetime = ? " +
+                                "WHERE f_id = ?;");
+                statement.setString(1, message.getText());
+                statement.setTimestamp(2, message.getDateTime());
+                statement.setLong(3, message.getId());
+            } else {
+                save(message);
+            }
+
             statement.execute();
             statement.close();
         } catch (SQLException e) {
