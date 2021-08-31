@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS product;
+
+CREATE TABLE product(
+    f_id IDENTITY PRIMARY KEY,
+    f_name VARCHAR(255) NOT NULL UNIQUE,
+    f_cost BIGINT NOT NULL
+);
