@@ -9,8 +9,7 @@ public class Message {
 	private String text;
 	private Timestamp dateTime;
 
-	public Message(Long id, User author, Chatroom room, String text, Timestamp dateTime) {
-		this.id = id;
+	public Message(User author, Chatroom room, String text, Timestamp dateTime) {
 		this.author = author;
 		this.room = room;
 		this.text = text;
@@ -50,5 +49,29 @@ public class Message {
 				", text='" + text + '\'' +
 				", dateTime=" + dateTime +
 				'}';
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public User getAuthor() {
+		return author;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public Chatroom getRoom() {
+		return room;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public Timestamp getDateTime() {
+		return dateTime;
 	}
 }

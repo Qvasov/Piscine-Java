@@ -6,7 +6,6 @@ import edu.school21.chat.models.User;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.Date;
 import java.util.Optional;
 
 public class MessagesRepositoryJdbcImpl implements MessagesRepository{
@@ -33,7 +32,7 @@ public class MessagesRepositoryJdbcImpl implements MessagesRepository{
             long authorId = resultSet.getLong("f_author_id");
             long chatroomId = resultSet.getLong("f_chatroom_id");
             String text = resultSet.getString("f_text");
-            Date datetime = resultSet.getTimestamp("f_datetime");
+            Timestamp dateTime = resultSet.getTimestamp("f_datetime");
             resultSet.close();
 
             resultSet = statement.executeQuery(String.format("SELECT * FROM t_users WHERE f_id = '%d';", authorId));
@@ -59,7 +58,7 @@ public class MessagesRepositoryJdbcImpl implements MessagesRepository{
 
             User user = new User(authorId, login, password);
             Chatroom chatroom = new Chatroom(chatroomId, roomName, user);
-            Message message = new Message(id, user, chatroom, text, datetime);
+            Message message = new Message(id, user, chatroom, text, dateTime);
 
             return Optional.of(message);
         } catch (SQLException e) {
