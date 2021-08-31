@@ -9,6 +9,14 @@ public class Message {
 	private String text;
 	private Date date;
 
+	public Message(Long id, User author, Chatroom room, String text, Date date) {
+		this.id = id;
+		this.author = author;
+		this.room = room;
+		this.text = text;
+		this.date = date;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;

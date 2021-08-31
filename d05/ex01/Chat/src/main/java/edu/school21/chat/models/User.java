@@ -9,6 +9,12 @@ public class User {
 	private List<Chatroom> createdRooms;
 	private List<Chatroom> signedRooms;
 
+	public User(Long id, String login, String password) {
+		this.id = id;
+		this.login = login;
+		this.password = password;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;

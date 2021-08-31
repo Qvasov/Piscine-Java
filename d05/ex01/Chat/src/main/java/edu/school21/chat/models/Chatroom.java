@@ -8,6 +8,12 @@ public class Chatroom {
 	private User owner;
 	private List<Message> messages;
 
+	public Chatroom(Long id, String name, User owner) {
+		this.id = id;
+		this.name = name;
+		this.owner = owner;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;

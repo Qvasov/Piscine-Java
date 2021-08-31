@@ -1,8 +1,15 @@
 package edu.school21.chat.app;
 
+import edu.school21.chat.repositories.MessagesRepositoryJdbcImpl;
+
+import javax.sql.DataSource;
 import java.util.Scanner;
 
 public class Program {
+
+	private static final String URL = "jdbc:postgresql://localhost:5432/postgres";
+	private static final String USER = "postgres";
+	private static final String PASSWORD = "postgres";
 
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
@@ -19,7 +26,7 @@ public class Program {
 			System.exit(-1);
 		}
 
-
-
+		DataSource dataSource;
+		new MessagesRepositoryJdbcImpl(dataSource);
 	}
 }
