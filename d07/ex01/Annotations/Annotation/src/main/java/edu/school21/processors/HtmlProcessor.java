@@ -47,7 +47,7 @@ public class HtmlProcessor extends AbstractProcessor {
 				processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,
 						String.format("Field annotated with %s is outside of class", HtmlInput.class.getSimpleName()));
 				return true;
-			} else if (!htmlFormClasses.containsKey((TypeElement) e.getEnclosingElement().getSimpleName())) {
+			} else if (!htmlFormClasses.containsKey((TypeElement) e.getEnclosingElement())) {
 				processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,
 						String.format("Field annotated with %s is out of class annotated %s",
 								HtmlInput.class.getSimpleName(), HtmlForm.class.getSimpleName()));
