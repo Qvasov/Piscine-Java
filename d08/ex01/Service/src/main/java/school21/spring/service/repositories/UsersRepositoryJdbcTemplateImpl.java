@@ -1,5 +1,6 @@
 package school21.spring.service.repositories;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -14,9 +15,6 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
 
 	private NamedParameterJdbcTemplate jdbcTemplate;
 
-	private final RowMapper<User> USER_ROW_MAPPER = (resultSet, i) ->
-			new User(resultSet.getLong("id"), resultSet.getString("email"));
-
 	public UsersRepositoryJdbcTemplateImpl(DataSource dataSource) {
 		this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 	}
@@ -25,7 +23,11 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
 	public Optional<User> findById(long id) {
 		MapSqlParameterSource map = new MapSqlParameterSource();
 		map.addValue("id", id);
-		return Optional.of(jdbcTemplate.queryForObject("SELECT * FROM users WHERE id = (:id);", map, new BeanPropertyRowMapper<>(User.class)));
+		try {
+			return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM users WHERE id = (:id);", map, new BeanPropertyRowMapper<>(User.class)));
+		} catch (EmptyResultDataAccessException e) {
+			return Optional.empty();
+		}
 	}
 
 	@Override
@@ -38,7 +40,7 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
 		MapSqlParameterSource map = new MapSqlParameterSource();
 		map.addValue("id", entity.getId())
 				.addValue("email", entity.getEmail());
-		jdbcTemplate.query("INSERT INTO users (id, email) VALUES (:id, :email);", map, new BeanPropertyRowMapper<>(User.class));
+		jdbcTemplate.update("INSERT INTO users (id, email) VALUES (:id, :email);", map);
 	}
 
 	@Override
@@ -46,20 +48,20 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
 		MapSqlParameterSource map = new MapSqlParameterSource();
 		map.addValue("id", entity.getId())
 				.addValue("email", entity.getEmail());
-		jdbcTemplate.query("UPDATE users SET email = (:email) WHERE id = (:id);", map, new BeanPropertyRowMapper<>(User.class));
+		jdbcTemplate.update("UPDATE users SET email = (:email) WHERE id = (:id);", map);
 	}
 
 	@Override
 	public void delete(Long id) {
 		MapSqlParameterSource map = new MapSqlParameterSource();
 		map.addValue("id", id);
-		jdbcTemplate.query("DELETE FROM users WHERE id = (:id);", map, new BeanPropertyRowMapper<>(User.class));
+		jdbcTemplate.update("DELETE FROM users WHERE id = (:id);", map);
 	}
 
 	@Override
 	public Optional<User> findByEmail(String email) {
 		MapSqlParameterSource map = new MapSqlParameterSource();
 		map.addValue("email", email);
-		return Optional.of(jdbcTemplate.queryForObject("SELECT * FROM users WHERE email = (:id)", map, new BeanPropertyRowMapper<>(User.class)));
+		return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM users WHERE email = (:email)", map, new BeanPropertyRowMapper<>(User.class)));
 	}
 }
