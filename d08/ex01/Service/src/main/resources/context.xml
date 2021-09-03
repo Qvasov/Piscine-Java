@@ -5,10 +5,10 @@
     <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
         <property name="location" value="db.properties"/>
     </bean>
-    <bean class="school21.spring.service.repositories.UsersRepositoryJdbcImpl" id="usersRepositoryJdbc">
+    <bean class="UsersRepositoryJdbcImpl" id="usersRepositoryJdbc">
         <constructor-arg ref="hikariDataSource"/>
     </bean>
-    <bean class="school21.spring.service.repositories.UsersRepositoryJdbcTemplateImpl" id="usersRepositoryJdbcTemplate">
+    <bean class="UsersRepositoryJdbcTemplateImpl" id="usersRepositoryJdbcTemplate">
         <constructor-arg ref="hikariDataSource"/>
     </bean>
     <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="driverManagerDataSource"/>

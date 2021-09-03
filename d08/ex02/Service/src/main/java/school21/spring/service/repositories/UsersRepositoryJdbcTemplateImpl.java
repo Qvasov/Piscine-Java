@@ -4,12 +4,14 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Component;
 import school21.spring.service.model.User;
 
 import javax.sql.DataSource;
 import java.util.List;
 import java.util.Optional;
 
+@Component("UsersRepositoryJdbcTemplateImpl")
 public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
 
 	private NamedParameterJdbcTemplate jdbcTemplate;
@@ -37,9 +39,9 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
 	@Override
 	public void save(User entity) {
 		MapSqlParameterSource map = new MapSqlParameterSource();
-		map.addValue("id", entity.getId())
-				.addValue("email", entity.getEmail());
-		jdbcTemplate.update("INSERT INTO users (id, email) VALUES (:id, :email);", map);
+		map.addValue("email", entity.getEmail())
+				.addValue("password", entity.getPassword());
+		jdbcTemplate.update("INSERT INTO users (email, password) VALUES (:email, :password);", map);
 	}
 
 	@Override
