@@ -1,6 +1,6 @@
 package school21.spring.service.services;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestApplicationConfig.class)
-class UsersServiceImplTest {
+public class UsersServiceImplTest {
 
 	@Autowired
 	private DataSource dataSource;
@@ -26,7 +26,7 @@ class UsersServiceImplTest {
 	private UsersService usersService;
 
 	@Test
-	void signUpTest() throws SQLException {
+	public void signUpTest() throws SQLException {
 		String email = "new_user@mail.ru";
 		String tempPassword = usersService.signUp("new_user@mail.ru");
 		String password = "";
