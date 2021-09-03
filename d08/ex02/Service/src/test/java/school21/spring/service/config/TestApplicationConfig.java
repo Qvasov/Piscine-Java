@@ -13,9 +13,7 @@ import school21.spring.service.services.UsersServiceImpl;
 import javax.sql.DataSource;
 
 @Configuration
-public
-class TestApplicationConfig {
-
+public class TestApplicationConfig {
 	@Bean
 	public DataSource embeddedDatabase() {
 		EmbeddedDatabaseBuilder databaseBuilder = new EmbeddedDatabaseBuilder();
@@ -39,7 +37,7 @@ class TestApplicationConfig {
 	}
 
 	@Bean
-	public UsersServiceImpl usersService() {
+	public UsersService usersService() {
 		return new UsersServiceImpl();
 	}
 }

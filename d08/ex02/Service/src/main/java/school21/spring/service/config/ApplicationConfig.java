@@ -24,9 +24,9 @@ public class ApplicationConfig {
 	public HikariConfig hikariConfig() {
 		HikariConfig hikariConfig = new HikariConfig();
 		hikariConfig.setJdbcUrl(environment.getProperty("db.url"));
-		hikariConfig.setUsername(environment.getProperty("db.username"));
+		hikariConfig.setUsername(environment.getProperty("db.user"));
 		hikariConfig.setPassword(environment.getProperty("db.password"));
-		hikariConfig.setUsername(environment.getProperty("db.username"));
+		hikariConfig.setUsername(environment.getProperty("db.driver.name"));
 		return hikariConfig;
 	}
 

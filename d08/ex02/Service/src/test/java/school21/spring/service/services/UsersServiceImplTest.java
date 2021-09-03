@@ -23,7 +23,7 @@ class UsersServiceImplTest {
 	private DataSource dataSource;
 
 	@Autowired
-	private UsersServiceImpl usersService;
+	private UsersService usersService;
 
 	@Test
 	void signUpTest() throws SQLException {

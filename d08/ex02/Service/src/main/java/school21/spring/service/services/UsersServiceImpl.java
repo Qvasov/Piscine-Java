@@ -10,6 +10,7 @@ import java.util.UUID;
 
 @Component("UserServiceImpl")
 public class UsersServiceImpl implements UsersService {
+
 	@Autowired
 	@Qualifier("UsersRepositoryJdbcImpl")
 	UsersRepository usersRepository;
