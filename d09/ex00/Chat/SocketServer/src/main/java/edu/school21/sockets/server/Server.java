@@ -27,22 +27,26 @@ public class Server {
 		     PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true)
 		     ) {
 			out.println("Hello from Server!");
+			String inputCmd = in.readLine();
+			System.out.println(inputCmd);
 
-			while (true) {
-				String inputCmd = in.readLine();
-				System.out.println(inputCmd);
+			if (inputCmd.equals("signUp")) {
+				out.println("Enter username:");
+				String username = in.readLine();
 
-				if (inputCmd.equals("signUp")) {
-					out.println("Enter username:");
-					String username = in.readLine();
-					out.println("Enter password:");
-					String password = in.readLine();
-					if (usersService.signUp(username, password)) {
-						out.println("Successful!");
-						break;
-					} else {
-						out.println("Enter command:");
-					}
+				if (username.isEmpty() || username.equals("null")) {
+					return;
+				}
+
+				out.println("Enter password:");
+				String password = in.readLine();
+
+				if (password.isEmpty() || password.equals("null")) {
+					return;
+				}
+
+				if (usersService.signUp(username, password)) {
+					out.println("Successful!");
 				}
 			}
 		} catch (IOException e) {

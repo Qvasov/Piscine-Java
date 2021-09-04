@@ -13,6 +13,11 @@ public class Main {
 			     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
 				while (true) {
 					String inputCmd = in.readLine();
+
+					if (inputCmd == null || inputCmd.equals("null")) {
+						break;
+					}
+
 					System.out.println(inputCmd);
 
 					if (inputCmd.equals("Successful!")) {
@@ -21,7 +26,6 @@ public class Main {
 						out.println(reader.readLine());
 					}
 				}
-
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

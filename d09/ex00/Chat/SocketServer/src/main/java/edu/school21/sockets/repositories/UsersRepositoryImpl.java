@@ -63,6 +63,10 @@ public class UsersRepositoryImpl implements UsersRepository {
 	public Optional<User> findByUsername(String username) {
 		MapSqlParameterSource map = new MapSqlParameterSource();
 		map.addValue("username", username);
-		return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM users WHERE username = (:username)", map, new BeanPropertyRowMapper<>(User.class)));
+		try {
+			return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM users WHERE username = (:username)", map, new BeanPropertyRowMapper<>(User.class)));
+		} catch (EmptyResultDataAccessException e) {
+			return Optional.empty();
+		}
 	}
 }
