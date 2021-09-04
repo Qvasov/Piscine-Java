@@ -21,7 +21,7 @@ public class Server {
 		ApplicationContext context = new AnnotationConfigApplicationContext(SocketsApplicationConfig.class);
 		UsersService usersService = context.getBean(UsersService.class);
 
-		try (ServerSocket serverSocket = new ServerSocket(port);
+		try (ServerSocket serverSocket = new ServerSocket(port, 1);
 		     Socket socket = serverSocket.accept();
 		     BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		     PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true)
