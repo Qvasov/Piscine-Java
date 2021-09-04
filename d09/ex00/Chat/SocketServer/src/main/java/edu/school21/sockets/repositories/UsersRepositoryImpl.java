@@ -1,20 +1,22 @@
-package school21.spring.service.repositories;
+package edu.school21.sockets.repositories;
 
+import edu.school21.sockets.models.User;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import school21.spring.service.models.User;
+import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.util.List;
 import java.util.Optional;
 
-public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
+@Component
+public class UsersRepositoryImpl implements UsersRepository {
 
 	private NamedParameterJdbcTemplate jdbcTemplate;
 
-	public UsersRepositoryJdbcTemplateImpl(DataSource dataSource) {
+	public UsersRepositoryImpl(DataSource dataSource) {
 		this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 	}
 
@@ -37,17 +39,17 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
 	@Override
 	public void save(User entity) {
 		MapSqlParameterSource map = new MapSqlParameterSource();
-		map.addValue("id", entity.getId())
-				.addValue("email", entity.getEmail());
-		jdbcTemplate.update("INSERT INTO users (id, email) VALUES (:id, :email);", map);
+		map.addValue("username", entity.getUsername())
+				.addValue("password", entity.getPassword());
+		jdbcTemplate.update("INSERT INTO users (username, password) VALUES (:username, :password);", map);
 	}
 
 	@Override
 	public void update(User entity) {
 		MapSqlParameterSource map = new MapSqlParameterSource();
 		map.addValue("id", entity.getId())
-				.addValue("email", entity.getEmail());
-		jdbcTemplate.update("UPDATE users SET email = (:email) WHERE id = (:id);", map);
+				.addValue("username", entity.getUsername());
+		jdbcTemplate.update("UPDATE users SET username = (:username) WHERE id = (:id);", map);
 	}
 
 	@Override
@@ -58,9 +60,9 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
 	}
 
 	@Override
-	public Optional<User> findByEmail(String email) {
+	public Optional<User> findByUsername(String username) {
 		MapSqlParameterSource map = new MapSqlParameterSource();
-		map.addValue("email", email);
-		return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM users WHERE email = (:email)", map, new BeanPropertyRowMapper<>(User.class)));
+		map.addValue("username", username);
+		return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM users WHERE username = (:username)", map, new BeanPropertyRowMapper<>(User.class)));
 	}
 }
