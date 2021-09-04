@@ -63,6 +63,10 @@ public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
 	public Optional<User> findByEmail(String email) {
 		MapSqlParameterSource map = new MapSqlParameterSource();
 		map.addValue("email", email);
-		return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM users WHERE email = (:email)", map, new BeanPropertyRowMapper<>(User.class)));
+		try {
+			return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT * FROM users WHERE email = (:email)", map, new BeanPropertyRowMapper<>(User.class)));
+		} catch (EmptyResultDataAccessException e) {
+			return Optional.empty();
+		}
 	}
 }
