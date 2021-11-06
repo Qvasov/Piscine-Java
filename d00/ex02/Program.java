@@ -3,13 +3,13 @@ import java.util.Scanner;
 public class Program {
 
 	public static int sqrt(int number) {
-		int n = 1;
+		int n = 0;
 
 		while (n * n <= number) {
 			n++;
 		}
 
-		return n;
+		return n - 1;
 	}
 
 	public static int sumOfDigit(int number) {
@@ -24,8 +24,7 @@ public class Program {
 	}
 
 	public static boolean isPrime(int number) {
-
-		for (int i = 2; i < sqrt(number); i++) {
+		for (int i = 2; i <= sqrt(number); i++) {
 			if (number % i == 0) {
 				return false;
 			}

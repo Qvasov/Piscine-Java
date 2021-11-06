@@ -4,8 +4,7 @@ import java.util.Scanner;
 public class Program {
 
 	public static int sqrt(int number) {
-
-		int n = 1;
+		int n = 0;
 
 		while (n * n <= number) {
 			n++;
@@ -15,7 +14,6 @@ public class Program {
 	}
 
 	public static void main(String[] args) {
-
 		int number;
 
 		int divider = 2;

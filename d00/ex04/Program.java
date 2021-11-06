@@ -6,73 +6,6 @@ public class Program {
 
 	public static final int VIEW_CHARS = 10;
 
-	public static void printResult(int[] frequencyResult, char[] charsResult) {
-		double max = frequencyResult[0];
-
-		int printed = 0;
-
-		boolean space = false;
-
-		boolean print = false;
-
-		for (int i = 0; i < VIEW_CHARS; i++) {
-			if (charsResult[i] != 0) {
-				print = true;
-				break;
-			}
-		}
-
-		for (int i = 0; i < VIEW_CHARS + 1; i++) {
-			for (int k = 0; k < printed; k++) {
-				if (k != 0) {
-					System.out.print(" ");
-				} else {
-					System.out.println();
-				}
-
-				System.out.print(" #");
-			}
-
-			for (int j = printed; j < VIEW_CHARS; j++) {
-				if ((int) ((double) frequencyResult[j] / max * 10) == 10 - i) {
-					if (space || j != 0) {
-						System.out.print(" ");
-					}
-
-					if (frequencyResult[j] > 99) {
-						System.out.print(frequencyResult[j]);
-					} else if (frequencyResult[j] > 9) {
-						System.out.print(frequencyResult[j]);
-					} else if (charsResult[j] != 0) {
-						System.out.print(" " + frequencyResult[j]);
-					}
-
-					space = true;
-					printed++;
-				} else {
-					space = false;
-					break;
-				}
-			}
-		}
-
-		if (print) {
-			System.out.println();
-
-			for (int i = 0; i < VIEW_CHARS; i++) {
-				if (charsResult[i] != 0) {
-					if (i != 0) {
-						System.out.print(" ");
-					}
-
-					System.out.print(" " + charsResult[i]);
-				}
-			}
-
-			System.out.println();
-		}
-	}
-
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 
@@ -141,5 +74,71 @@ public class Program {
 		}
 
 		printResult(frequencyResult, charsResult);
+	}
+
+	public static void printResult(int[] frequencyResult, char[] charsResult) {
+		double max = frequencyResult[0];
+
+		int printed_freq = 0;
+
+		int height = frequencyResult[0];
+
+		boolean space = false;
+
+		boolean print = height != 0;
+
+		if (height > 10) {
+			height = 10;
+		}
+
+		for (int i = 0; i < height + 1; i++) {
+			for (int k = 0; k < printed_freq; k++) {
+				if (k != 0) {
+					System.out.print(" ");
+				} else {
+					System.out.println();
+				}
+
+				System.out.print(" #");
+			}
+
+			for (int j = printed_freq; j < VIEW_CHARS; j++) {
+				if ((int) ((double) frequencyResult[j] / max * height) == height - i) {
+					if (space || j != 0) {
+						System.out.print(" ");
+					}
+
+					if (frequencyResult[j] > 99) {
+						System.out.print(frequencyResult[j]);
+					} else if (frequencyResult[j] > 9) {
+						System.out.print(frequencyResult[j]);
+					} else if (charsResult[j] != 0) {
+						System.out.print(" " + frequencyResult[j]);
+					}
+
+					space = true;
+					printed_freq++;
+				} else {
+					space = false;
+					break;
+				}
+			}
+		}
+
+		if (print) {
+			System.out.println();
+
+			for (int i = 0; i < VIEW_CHARS; i++) {
+				if (charsResult[i] != 0) {
+					if (i != 0) {
+						System.out.print(" ");
+					}
+
+					System.out.print(" " + charsResult[i]);
+				}
+			}
+
+			System.out.println();
+		}
 	}
 }
