@@ -15,7 +15,7 @@ public class Menu {
 
 	private static boolean isNumber(String str) {
 		try {
-			int i = Integer.parseInt(str);
+			Integer.parseInt(str);
 		} catch (NumberFormatException e) {
 			return false;
 		}
@@ -23,7 +23,7 @@ public class Menu {
 	}
 
 	public void menuStart() {
-		int num = 0;
+		int num;
 
 		while (true) {
 			mainMenu();
@@ -64,7 +64,6 @@ public class Menu {
 				System.out.println("Error. You only need to enter the operation number");
 			}
 		}
-
 	}
 
 	private void mainMenu() {
@@ -129,7 +128,8 @@ public class Menu {
 
 					if (userId >= 0) {
 						try {
-							System.out.println("Mike - " + transactionsService.getUserBalance(userId));
+							System.out.println(transactionsService.getUserName(userId) + " - " +
+									transactionsService.getUserBalance(userId));
 							return;
 						} catch (UserNotFoundException e) {
 							System.out.println("Error. User not found");
@@ -211,8 +211,7 @@ public class Menu {
 					if (userId >= 0) {
 						try {
 							for (Transaction t : transactionsService.getTransfers(userId)) {
-								System.out.printf("To %s(id = %d) %s with id = %s\n", t.getRecipient().getName(),
-										t.getRecipient().getId(), t.getAmountString(), t.getId());
+								System.out.println(t);
 							}
 							return;
 						} catch (UserNotFoundException e) {
@@ -276,9 +275,14 @@ public class Menu {
 	private void checkTransfers() {
 		System.out.println("Check results:");
 		for (Transaction t : transactionsService.getInvalidTransaction()) {
-			System.out.printf("%s(id = %d) has an unacknowledged transfer id = %s from %s(id = %d) for %s\n",
-					t.getSender().getName(), t.getSender().getId(), t.getId(), t.getRecipient().getName(),
-					t.getRecipient().getId(), (t.getAmount() < 0) ? t.getAmount() * -1 : t.getAmount());
+			System.out.printf("%s(id = %d) has an unacknowledged transfer id = %s %s %s(id = %d) for %s\n",
+					t.getSender().getName(),
+					t.getSender().getId(),
+					t.getId(),
+					(t.getCategory() == Transaction.TransferCategory.OUTCOME) ? "to" : "from",
+					t.getRecipient().getName(),
+					t.getRecipient().getId(),
+					(t.getAmount() < 0) ? t.getAmount() * -1 : t.getAmount());
 		}
 	}
 }

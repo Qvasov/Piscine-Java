@@ -20,15 +20,15 @@ public class TransactionsService {
 
 		Transaction transaction;
 
-		if (sender.getBalance() < amount) {
+		if (sender.getBalance() < amount || amount < 0) {
 			throw new IllegalTransactionException();
 		}
 
-		transaction = new Transaction(recipient, sender, TransferCategory.OUTCOME, -amount);
+		transaction = new Transaction(sender, recipient, Transaction.TransferCategory.OUTCOME, -amount);
 		sender.setBalance(sender.getBalance() - amount);
 		sender.getTransactionsList().addTransaction(transaction);
 
-		transaction = new Transaction(sender, recipient, TransferCategory.INCOME, amount, transaction.getId());
+		transaction = new Transaction(recipient, sender, Transaction.TransferCategory.INCOME, amount, transaction.getId());
 		recipient.setBalance(recipient.getBalance() + amount);
 		recipient.getTransactionsList().addTransaction(transaction);
 	}

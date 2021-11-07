@@ -3,9 +3,9 @@ import java.util.UUID;
 public class Transaction {
 	private String id;
 
-	private User recipient;
-
 	private User sender;
+
+	private User recipient;
 
 	private TransferCategory category;
 
@@ -13,26 +13,24 @@ public class Transaction {
 
 	private TransferStatus status;
 
-	public Transaction(User recipient, User sender, TransferCategory category, int amount) {
-		setId(UUID.randomUUID().toString());
-		setRecipient(recipient);
-		setSender(sender);
-		setCategory(category);
-		setAmount(amount);
+	public Transaction(User sender, User recipient, TransferCategory category, int amount) {
+		this.id = UUID.randomUUID().toString();
+		this.sender = sender;
+		this.recipient = recipient;
+		this.category = category;
+		this.amount = amount;
 
-		if (category == TransferCategory.OUTCOME && amount < 0 && this.recipient.getBalance() >= abs(amount)) {
+		if (category == TransferCategory.OUTCOME && amount < 0 && this.sender.getBalance() >= abs(amount)) {
 			this.status = TransferStatus.SUCCESS;
-			this.recipient.setBalance(this.recipient.getBalance() + amount);
 		} else if (category == TransferCategory.INCOME && amount > 0 && this.recipient.getBalance() >= amount) {
 			this.status = TransferStatus.SUCCESS;
-			this.sender.setBalance(this.sender.getBalance() + amount);
 		} else {
 			this.status = TransferStatus.FAIL;
 		}
 	}
 
-	public Transaction(User recipient, User sender, TransferCategory category, int amount, String id) {
-		this(recipient, sender, category, amount);
+	public Transaction(User sender, User recipient, TransferCategory category, int amount, String id) {
+		this(sender, recipient, category, amount);
 		setId(id);
 	}
 
@@ -56,28 +54,8 @@ public class Transaction {
 		return amount;
 	}
 
-	public String getAmountString() {
-		if (amount > 0)
-			return "+" + amount;
-		else {
-			return String.valueOf(amount);
-		}
-	}
-
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public void setRecipient(User recipient) {
-		this.recipient = recipient;
-	}
-
-	public void setSender(User sender) {
-		this.sender = sender;
-	}
-
-	public void setCategory(TransferCategory category) {
-		this.category = category;
 	}
 
 	public void setAmount(int amount) {
@@ -87,6 +65,11 @@ public class Transaction {
 		} else {
 			this.amount = 0;
 		}
+	}
+
+	enum TransferCategory {
+		INCOME,
+		OUTCOME
 	}
 
 	enum TransferStatus {
@@ -100,5 +83,15 @@ public class Transaction {
 		} else {
 			return amount;
 		}
+	}
+
+	@Override
+	public String toString() {
+		return String.format("%s %s(id = %d) %+d with id = %s",
+				(category == Transaction.TransferCategory.OUTCOME) ? "To" : "From",
+				recipient.getName(),
+				recipient.getId(),
+				amount,
+				id);
 	}
 }
