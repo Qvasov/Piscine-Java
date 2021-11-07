@@ -34,8 +34,20 @@ public class Program {
 			if (console.equals("exit")) {
 				break;
 			} else if (console.equals("ls")) {
-				for (File file : currentPath.toFile().listFiles()) {
-					System.out.println(file.getName() + " " + file.length() / 1024 + " KB");
+				try {
+					for (File file : currentPath.toFile().listFiles()) {
+						int i = 0;
+						long size = countFileSize(file);
+
+						while (size >= 1024) {
+							size /= 1024;
+							i++;
+						}
+
+						System.out.println(file.getName() + " " + size + " " + getSizeChar(i));
+					}
+				} catch (SecurityException e) {
+					e.printStackTrace();
 				}
 			} else if (console.startsWith("cd")) {
 				argsCommand = console.split(" ");
@@ -68,5 +80,39 @@ public class Program {
 				}
 			}
 		}
+	}
+
+	private static long countFileSize(File file) {
+		long result = 0L;
+
+		try {
+			if (Files.isDirectory(file.toPath())) {
+				for (File f : file.listFiles()) {
+					result += countFileSize(f);
+				}
+			} else {
+				result = file.length();
+			}
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	private static String getSizeChar(int i) {
+		switch (i) {
+			case 1:
+				return "KB";
+			case 2:
+				return "MB";
+			case 3:
+				return "GB";
+			case 4:
+				return "TB";
+			case 5:
+				return "PB";
+		}
+		return "B";
 	}
 }
