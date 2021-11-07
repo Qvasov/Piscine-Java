@@ -32,7 +32,7 @@ public class Program {
 		int sum = 0;
 
 		for (int i = 0; i < data.array.length; i++) {
-			data.array[i] = (int) Math.round(Math.random() * Integer.MAX_VALUE) % 1000;
+			data.array[i] = (int) Math.round(Math.random() * 2000) - 1000;
 			sum += data.array[i];
 		}
 

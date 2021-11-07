@@ -1,3 +1,6 @@
+import java.util.LinkedList;
+import java.util.List;
+
 public class Program {
 
 	public static void main(String[] args) {
@@ -7,17 +10,18 @@ public class Program {
 
 		int count = Integer.parseInt(args[0].replace("--count=", ""));
 
-		Object lock = new Object();
+		List<Object> buffer = new LinkedList<>();
 
 		Runnable egg = new Runnable() {
 			@Override
 			public void run() {
-				synchronized (lock) {
+				synchronized (buffer) {
 					for (int i = 0; i < count; i++) {
-						System.out.println("Egg");
-						lock.notify();
+						System.out.println(Thread.currentThread().getName());
+						buffer.add(new Object());
+						buffer.notify();
 						try {
-							lock.wait();
+							buffer.wait();
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -29,23 +33,28 @@ public class Program {
 		Runnable hen = new Runnable() {
 			@Override
 			public void run() {
-				synchronized (lock) {
+				synchronized (buffer) {
 					for (int i = 0; i < count; i++) {
-						System.out.println("Hen");
-						lock.notify();
-						try {
-							lock.wait();
-						} catch (InterruptedException e) {
-							e.printStackTrace();
+						if (buffer.isEmpty()) {
+							try {
+								buffer.wait();
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
 						}
+						buffer.remove(0);
+						System.out.println(Thread.currentThread().getName());
+						buffer.notify();
 					}
 				}
 			}
 		};
 
 		Thread eggT = new Thread(egg);
-
 		Thread henT = new Thread(hen);
+
+		eggT.setName("Egg");
+		henT.setName("Hen");
 
 		eggT.start();
 		henT.start();
