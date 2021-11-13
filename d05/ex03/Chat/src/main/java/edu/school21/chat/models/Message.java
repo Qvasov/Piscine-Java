@@ -1,6 +1,7 @@
 package edu.school21.chat.models;
 
 import java.sql.Timestamp;
+import java.util.Objects;
 
 public class Message {
 	private Long id;
@@ -28,24 +29,17 @@ public class Message {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-
 		Message message = (Message) o;
-
-		if (!id.equals(message.id)) return false;
-		if (!author.equals(message.author)) return false;
-		if (!room.equals(message.room)) return false;
-		if (!text.equals(message.text)) return false;
-		return dateTime.equals(message.dateTime);
+		return Objects.equals(id, message.id) &&
+				Objects.equals(author, message.author) &&
+				Objects.equals(room, message.room) &&
+				Objects.equals(text, message.text) &&
+				Objects.equals(dateTime, message.dateTime);
 	}
 
 	@Override
 	public int hashCode() {
-		int result = id.hashCode();
-		result = 31 * result + author.hashCode();
-		result = 31 * result + room.hashCode();
-		result = 31 * result + text.hashCode();
-		result = 31 * result + dateTime.hashCode();
-		return result;
+		return Objects.hash(id, author, room, text, dateTime);
 	}
 
 	@Override

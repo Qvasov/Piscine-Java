@@ -7,8 +7,6 @@ import edu.school21.chat.repositories.MessagesRepository;
 import edu.school21.chat.repositories.MessagesRepositoryJdbcImpl;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -30,29 +28,25 @@ public class Program {
 
 		Scanner scanner = new Scanner(System.in);
 
-		try (Connection connection = dataSource.getConnection()){
-			System.out.println("Enter a message ID");
+		System.out.println("Enter a message ID");
 
-			while (scanner.hasNext()) {
-				if (!scanner.hasNextLong()) {
-					System.out.println("Enter a message ID");
-					continue;
-				}
-
-				long message_id = scanner.nextLong();
-				Optional<Message> message = messagesRepository.findById(message_id);
-
-				if (!message.isPresent()) {
-					System.out.println("Message does not exist");
-					System.out.println("Enter a message ID");
-					continue;
-				}
-
-				System.out.println(message.get());
-				break;
+		while (scanner.hasNext()) {
+			if (!scanner.hasNextLong()) {
+				System.out.println("Enter a message ID");
+				continue;
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+
+			long message_id = scanner.nextLong();
+			Optional<Message> message = messagesRepository.findById(message_id);
+
+			if (!message.isPresent()) {
+				System.out.println("Message does not exist");
+				System.out.println("Enter a message ID");
+				continue;
+			}
+
+			System.out.println(message.get());
+			break;
 		}
 	}
 }

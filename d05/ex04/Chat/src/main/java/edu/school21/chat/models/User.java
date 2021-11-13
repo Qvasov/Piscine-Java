@@ -1,5 +1,6 @@
 package edu.school21.chat.models;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,16 +11,25 @@ public class User {
 	private List<Chatroom> createdRooms;
 	private List<Chatroom> signedRooms;
 
+	public User(Long id, String login, String password) {
+		this.id = id;
+		this.login = login;
+		this.password = password;
+		this.createdRooms = new ArrayList<>();
+		this.signedRooms = new ArrayList<>();
+	}
+
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		User user = (User) o;
-		return Objects.equals(id, user.id) &&
-				Objects.equals(login, user.login) &&
-				Objects.equals(password, user.password) &&
-				Objects.equals(createdRooms, user.createdRooms) &&
-				Objects.equals(signedRooms, user.signedRooms);
+		return id.equals(user.id) &&
+				login.equals(user.login)  &&
+				password.equals(user.password) &&
+				createdRooms.equals(user.createdRooms) &&
+				signedRooms.equals(user.signedRooms);
 	}
 
 	@Override
@@ -36,5 +46,25 @@ public class User {
 				", createdRooms=" + createdRooms +
 				", signedRooms=" + signedRooms +
 				'}';
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public List<Chatroom> getCreatedRooms() {
+		return createdRooms;
+	}
+
+	public List<Chatroom> getSignedRooms() {
+		return signedRooms;
 	}
 }

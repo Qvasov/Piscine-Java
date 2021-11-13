@@ -1,6 +1,7 @@
 package edu.school21.chat.models;
 
 import java.util.List;
+import java.util.Objects;
 
 public class User {
 	private Long id;
@@ -19,24 +20,17 @@ public class User {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-
 		User user = (User) o;
-
-		if (!id.equals(user.id)) return false;
-		if (!login.equals(user.login)) return false;
-		if (!password.equals(user.password)) return false;
-		if (createdRooms != null ? !createdRooms.equals(user.createdRooms) : user.createdRooms != null) return false;
-		return signedRooms != null ? signedRooms.equals(user.signedRooms) : user.signedRooms == null;
+		return Objects.equals(id, user.id) &&
+				Objects.equals(login, user.login) &&
+				Objects.equals(password, user.password) &&
+				Objects.equals(createdRooms, user.createdRooms) &&
+				Objects.equals(signedRooms, user.signedRooms);
 	}
 
 	@Override
 	public int hashCode() {
-		int result = id.hashCode();
-		result = 31 * result + login.hashCode();
-		result = 31 * result + password.hashCode();
-		result = 31 * result + (createdRooms != null ? createdRooms.hashCode() : 0);
-		result = 31 * result + (signedRooms != null ? signedRooms.hashCode() : 0);
-		return result;
+		return Objects.hash(id, login, password, createdRooms, signedRooms);
 	}
 
 	@Override

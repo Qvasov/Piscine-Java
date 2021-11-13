@@ -31,7 +31,7 @@ public class Program {
 
 		MessagesRepository messagesRepository = new MessagesRepositoryJdbcImpl(dataSource);
 
-		try (Connection connection = dataSource.getConnection()){
+		try (Connection connection = dataSource.getConnection()) {
 			List<User> userList = new ArrayList<>();
 			List<Chatroom> chatroomList = new ArrayList<>();
 			Statement statement = connection.createStatement();
@@ -73,10 +73,10 @@ public class Program {
 				e.printStackTrace();
 			}
 
-			User fakeUser1 = new User(999L, "java", "java");
+			User fakeUser1 = new User(null, "java", "java");
 			User fakeUser2 = new User(999L, "java", "java");
 			Chatroom fakeRoom1 = new Chatroom(null, "fakeRoom", fakeUser1);
-			Chatroom fakeRoom2 = new Chatroom(null, "fakeRoom", fakeUser2);
+			Chatroom fakeRoom2 = new Chatroom(999L, "fakeRoom", fakeUser2);
 
 			try {
 				message = new Message(fakeUser1, chatroomList.get(7), "toto1", Timestamp.valueOf(LocalDateTime.now()));
