@@ -2,14 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>main</artifactId>
-        <groupId>edu.school21.main</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>Forms</artifactId>
+    <artifactId>Form</artifactId>
+
+    <parent>
+        <artifactId>ex01</artifactId>
+        <groupId>edu.school21.annotations</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
