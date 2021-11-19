@@ -2,6 +2,7 @@ package school21.spring.service.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import school21.spring.service.repositories.UsersRepository;
@@ -27,17 +28,22 @@ public class TestApplicationConfig {
 	}
 
 	@Bean
-	public UsersRepository usersRepositoryJdbc(DataSource dataSource) {
-		return new UsersRepositoryJdbcImpl(dataSource);
+	public UsersRepository usersRepositoryJdbc() {
+		return new UsersRepositoryJdbcImpl();
 	}
 
 	@Bean
-	public UsersRepository usersRepositoryJdbcTemplate(DataSource dataSource) {
-		return new UsersRepositoryJdbcTemplateImpl(dataSource);
+	public UsersRepository usersRepositoryJdbcTemplate() {
+		return new UsersRepositoryJdbcTemplateImpl();
 	}
 
 	@Bean
 	public UsersService usersService() {
 		return new UsersServiceImpl();
+	}
+
+	@Bean
+	public NamedParameterJdbcTemplate namedParameterJdbcTemplate(DataSource dataSource) {
+		return new NamedParameterJdbcTemplate(dataSource);
 	}
 }

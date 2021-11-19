@@ -1,5 +1,6 @@
 package school21.spring.service.repositories;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -7,17 +8,16 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 import school21.spring.service.models.User;
 
-import javax.sql.DataSource;
 import java.util.List;
 import java.util.Optional;
 
 @Component("UsersRepositoryJdbcTemplateImpl")
 public class UsersRepositoryJdbcTemplateImpl implements UsersRepository {
 
+	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
 
-	public UsersRepositoryJdbcTemplateImpl(DataSource dataSource) {
-		this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+	public UsersRepositoryJdbcTemplateImpl() {
 	}
 
 	@Override

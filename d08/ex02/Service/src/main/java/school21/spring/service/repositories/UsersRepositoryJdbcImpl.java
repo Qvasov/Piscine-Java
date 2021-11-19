@@ -1,5 +1,6 @@
 package school21.spring.service.repositories;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import school21.spring.service.models.User;
 
@@ -15,15 +16,15 @@ import java.util.Optional;
 @Component("UsersRepositoryJdbcImpl")
 public class UsersRepositoryJdbcImpl implements UsersRepository {
 
+	@Autowired
 	private DataSource dataSource;
 
-	public UsersRepositoryJdbcImpl(DataSource dataSource) {
-		this.dataSource = dataSource;
+	public UsersRepositoryJdbcImpl() {
 	}
 
 	@Override
 	public Optional<User> findById(long id) {
-		try (Connection connection = dataSource.getConnection()){
+		try (Connection connection = dataSource.getConnection()) {
 			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users WHERE id = ?;");
 			preparedStatement.setLong(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();
@@ -57,7 +58,7 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
 
 	@Override
 	public void save(User entity) {
-		try (Connection connection = dataSource.getConnection()){
+		try (Connection connection = dataSource.getConnection()) {
 			PreparedStatement preparedStatement = connection
 					.prepareStatement("INSERT INTO users (email, password) VALUES (?, ?);");
 			preparedStatement.setString(1, entity.getEmail());
@@ -70,7 +71,7 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
 
 	@Override
 	public void update(User entity) {
-		try (Connection connection = dataSource.getConnection()){
+		try (Connection connection = dataSource.getConnection()) {
 			PreparedStatement preparedStatement = connection.prepareStatement("UPDATE users SET email = ? WHERE id = ?;");
 			preparedStatement.setString(1, entity.getEmail());
 			preparedStatement.setLong(2, entity.getId());
@@ -82,7 +83,7 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
 
 	@Override
 	public void delete(Long id) {
-		try (Connection connection = dataSource.getConnection()){
+		try (Connection connection = dataSource.getConnection()) {
 			PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM users WHERE id = ?;");
 			preparedStatement.setLong(1, id);
 			preparedStatement.execute();
@@ -93,7 +94,7 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
 
 	@Override
 	public Optional<User> findByEmail(String email) {
-		try (Connection connection = dataSource.getConnection()){
+		try (Connection connection = dataSource.getConnection()) {
 			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users WHERE email = ?;");
 			preparedStatement.setString(1, email);
 			ResultSet resultSet = preparedStatement.executeQuery();

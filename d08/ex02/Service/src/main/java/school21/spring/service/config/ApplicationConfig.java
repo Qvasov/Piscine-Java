@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import school21.spring.service.repositories.UsersRepository;
 import school21.spring.service.repositories.UsersRepositoryJdbcImpl;
 import school21.spring.service.repositories.UsersRepositoryJdbcTemplateImpl;
@@ -36,12 +37,17 @@ public class ApplicationConfig {
 	}
 
 	@Bean
-	public UsersRepository usersRepositoryJdbc(HikariDataSource hikariDataSource) {
-		return new UsersRepositoryJdbcImpl(hikariDataSource);
+	public UsersRepository usersRepositoryJdbc() {
+		return new UsersRepositoryJdbcImpl();
 	}
 
 	@Bean
-	public UsersRepository usersRepositoryJdbcTemplate(HikariDataSource hikariDataSource) {
-		return new UsersRepositoryJdbcTemplateImpl(hikariDataSource);
+	public UsersRepository usersRepositoryJdbcTemplate() {
+		return new UsersRepositoryJdbcTemplateImpl();
+	}
+
+	@Bean
+	public NamedParameterJdbcTemplate namedParameterJdbcTemplate(HikariDataSource hikariDataSource) {
+		return new NamedParameterJdbcTemplate(hikariDataSource);
 	}
 }
