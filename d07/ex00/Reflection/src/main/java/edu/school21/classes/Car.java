@@ -1,4 +1,4 @@
-package edu.school21.processors;
+package edu.school21.classes;
 
 import java.util.StringJoiner;
 
