@@ -48,8 +48,9 @@ public class UsersRepositoryImpl implements UsersRepository {
 	public void update(User entity) {
 		MapSqlParameterSource map = new MapSqlParameterSource();
 		map.addValue("id", entity.getId())
-				.addValue("username", entity.getUsername());
-		jdbcTemplate.update("UPDATE users SET username = (:username) WHERE id = (:id);", map);
+				.addValue("username", entity.getUsername())
+				.addValue("password", entity.getUsername());
+		jdbcTemplate.update("UPDATE users SET username = (:username), password = (:password) WHERE id = (:id);", map);
 	}
 
 	@Override
